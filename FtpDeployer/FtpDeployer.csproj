@@ -1,0 +1,44 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <SatelliteResourceLanguages>en-US</SatelliteResourceLanguages>
+
+    <Version>1.0.2</Version>
+    <AssemblyVersion>1.02</AssemblyVersion>
+    <FileVersion>1.02</FileVersion>
+
+    <PackageId>FtpDeployer</PackageId>
+    <PackAsTool>true</PackAsTool>
+    <ToolCommandName>ftp-deployer</ToolCommandName>
+    <PackageOutputPath>../nupkg</PackageOutputPath>
+    <Authors>Giorogs Brantzos</Authors>
+    <Company>GbWorkd</Company>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Description>Simple dotnet tool to help deploying an application using FTP</Description>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageProjectUrl>https://github.com/gbrantzos/ftp-deployer</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/gbrantzos/ftp-deployer</RepositoryUrl>
+    <RepositoryType>GIT</RepositoryType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentFTP" Version="46.0.2"/>
+    <PackageReference Include="Glob" Version="1.1.9"/>
+    <PackageReference Include="Spectre.Console" Version="0.47.0"/>
+    <PackageReference Include="System.CommandLine" Version="2.0.0-beta4.22272.1"/>
+    <PackageReference Include="YamlDotNet" Version="13.1.1"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="App_Offline.htm"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\"/>
+  </ItemGroup>
+
+</Project>
