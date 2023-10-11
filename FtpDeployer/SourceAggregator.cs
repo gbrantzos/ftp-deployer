@@ -35,6 +35,7 @@ public static class SourceAggregator
                     new FileInfo(fullPath).Length
                 );
             })
+            .OrderBy(f => f.RelativePath)
             .ToList();
 
         return details;

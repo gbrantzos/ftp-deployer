@@ -43,8 +43,9 @@ Task<int> DoWork(IAnsiConsole console, Settings settings)
 {
     try
     {
-        // TODO Get this from assembly
-        var version = "v0.1.0-preview";
+        var assembly = typeof(Program).Assembly;
+        var fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
+        var version = fvi.FileVersion;
         var sw = new Stopwatch();
         sw.Start();
 

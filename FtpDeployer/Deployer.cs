@@ -1,4 +1,5 @@
 using FluentFTP;
+using GlobExpressions;
 
 namespace FtpDeployer;
 
@@ -6,13 +7,15 @@ public class Deployer
 {
     private readonly Settings _settings;
     private readonly Action<string>? _logger;
+    private readonly Glob[] _overWrite;
 
     public record DeploymentResults(int FilesTransferred, long BytesTransferred);
 
     public Deployer(Settings settings, Action<string>? logger = null)
     {
-        _settings = settings;
-        _logger = logger;
+        _settings  = settings;
+        _logger    = logger;
+        _overWrite = _settings.OverWrite.Select(o => new Glob(o)).ToArray();
     }
 
     public DeploymentResults StartDeployment(IEnumerable<SourceAggregator.FileDetails> sources,
@@ -59,8 +62,10 @@ public class Deployer
                 client.CreateDirectory(detail.RelativeFolder);
             }
 
-            var comparison = client
-                .CompareFile(detail.FullPath, detail.RelativePath, FtpCompareOption.Size);
+            var skipComparison = _overWrite.Any(o => o.IsMatch(detail.RelativePath));
+            var comparison = skipComparison
+                ? FtpCompareResult.NotEqual
+                : client.CompareFile(detail.FullPath, detail.RelativePath, FtpCompareOption.Size);
             if (comparison == FtpCompareResult.Equal)
             {
                 callbackBefore?.Invoke(detail, index, true);

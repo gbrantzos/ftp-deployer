@@ -16,6 +16,7 @@ public sealed class Settings
     public string RemoteDirectory { get; set; } = String.Empty;
     public bool EmptyRemoteDirectory { get; set; }
     public bool UploadAppOffline { get; set; }
+    public string[] OverWrite { get; set; } = { };
 
     public static Settings FromYaml(string filePath)
     {
