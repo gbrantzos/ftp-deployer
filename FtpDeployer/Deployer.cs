@@ -41,7 +41,7 @@ public class Deployer
             var result = client.UploadFile(AppOffline.FileName, AppOffline.FileName);
             if (result == FtpStatus.Failed)
                 throw new InvalidOperationException($"Could not upload {AppOffline.FileName}!");
-            Thread.Sleep(300);
+            Thread.Sleep(_settings.Delay);
         }
 
         if (_settings.EmptyRemoteDirectory)
